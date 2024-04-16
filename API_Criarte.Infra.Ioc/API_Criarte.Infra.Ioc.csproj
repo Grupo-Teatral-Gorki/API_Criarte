@@ -1,0 +1,15 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>net7.0</TargetFramework>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <Nullable>enable</Nullable>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\API_Criarte.Application\API_Criarte.Application.csproj" />
+    <ProjectReference Include="..\API_Criarte.Domain\API_Criarte.Domain.csproj" />
+    <ProjectReference Include="..\API_Criarte.Infra.Data\API_Criarte.Infra.Data.csproj" />
+  </ItemGroup>
+
+</Project>
