@@ -1,4 +1,6 @@
-﻿using AutoMapper;
+﻿using API_Criarte.Application.DTOs;
+using API_Criarte.Domain.Models;
+using AutoMapper;
 
 namespace API_Criarte.Application.Mappings
 {
@@ -6,7 +8,7 @@ namespace API_Criarte.Application.Mappings
     {
         public EntitiesToDTOMappingProfile()
         {
-            //CreateMap<Clientes, ClientesDTO>().ReverseMap();
+            CreateMap<Usuarios, UsuarioDTO>().ReverseMap();
         }
     }
 }

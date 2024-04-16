@@ -1,6 +1,10 @@
 
+using API_Criarte.Application.Interfaces;
 using API_Criarte.Application.Mappings;
+using API_Criarte.Application.Services;
+using API_Criarte.Domain.Interfaces;
 using API_Criarte.Infra.Data.Context;
+using API_Criarte.Infra.Data.Repositories;
 using Microsoft.EntityFrameworkCore;
 
 namespace API_Criarte
@@ -23,6 +27,13 @@ namespace API_Criarte
             // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
             builder.Services.AddEndpointsApiExplorer();
             builder.Services.AddSwaggerGen();
+
+            //Respository
+            builder.Services.AddScoped<ILoginRepository, LoginRepository>();
+
+            //Services
+            builder.Services.AddScoped<ILoginService, LoginService>();
+
 
             builder.Services.AddAutoMapper(typeof(EntitiesToDTOMappingProfile));
 
