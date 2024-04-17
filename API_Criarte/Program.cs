@@ -30,9 +30,11 @@ namespace API_Criarte
 
             //Respository
             builder.Services.AddScoped<ILoginRepository, LoginRepository>();
+            builder.Services.AddScoped<IProponenteRepository, ProponenteRepository>();
 
             //Services
             builder.Services.AddScoped<ILoginService, LoginService>();
+            builder.Services.AddScoped<IProponenteService, ProponenteService>();
 
 
             builder.Services.AddAutoMapper(typeof(EntitiesToDTOMappingProfile));
