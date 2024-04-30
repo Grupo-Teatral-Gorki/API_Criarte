@@ -6,13 +6,13 @@ using System.Threading.Tasks;
 
 namespace API_Criarte.Domain
 {
-    public class ApiResponse
+    public class ApiResponse<T>
     {
         public bool Error { get; set; }
         public string Message { get; set; }
-        public object Data { get; set; }
+        public T Data { get; set; }
 
-        public ApiResponse(bool error, string message, object data = null)
+        public ApiResponse(bool error, string message, T data = default(T))
         {
             Error = error;
             Message = message;

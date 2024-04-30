@@ -18,5 +18,9 @@ namespace API_Criarte.Domain.Models
         public string Usuario { get; set; }
         [Column("senha")]
         public string Senha { get; set; }
+        [Column("token")]
+        public string? Token { get; set; }
+        [Column("expiration_token")]
+        public DateTime? ExpirationToken { get; set; }
     }
 }

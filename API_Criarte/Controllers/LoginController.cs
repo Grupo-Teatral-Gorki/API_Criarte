@@ -21,7 +21,7 @@ namespace API_Criarte.Controllers
         [Route("~/api/usuarios/createuser/")]
         public async Task<IActionResult> CreateUser([Required][FromBody]UsuarioDTO usuario)
         {
-            ApiResponse result = await _loginService.CreateUser(usuario);
+            ApiResponse<object> result = await _loginService.CreateUser(usuario);
             if(result.Error)
             {
                 return BadRequest(result.Message);
@@ -35,13 +35,39 @@ namespace API_Criarte.Controllers
         public async Task<IActionResult> Login([Required][FromBody]UsuarioDTO usuario)
         {
             IActionResult response = Unauthorized();
-            var user_ = await _loginService.AuthenticateUser(usuario);
+            ApiResponse<UsuarioLogadoDTO> user_ = await _loginService.AuthenticateUser(usuario);
             if (user_ != null)
             {
-                var token = _loginService.GenerateToken(user_);
+                var token = _loginService.GenerateToken(user_.Data);
                 response = Ok(new { token, user = user_ });
             }
             return response;
+        }
+
+        [AllowAnonymous]
+        [HttpPost]
+        [Route("~/api/usuarios/recovery/{email}")]
+        public async Task<IActionResult> Recovery(string email)
+        {
+            ApiResponse<string> send = await _loginService.RecoveryPass(email);
+            if (send.Error)
+            {
+                return BadRequest(send);
+            }
+            return Ok(send);
+        }
+
+        [AllowAnonymous]
+        [HttpPost]
+        [Route("~/api/usuarios/newPass/")]
+        public async Task<IActionResult> NewPass([Required] string pass, [Required] string token)
+        {
+            ApiResponse<string> send = await _loginService.NewPass(pass, token);
+            if (send.Error)
+            {
+                return BadRequest(send);
+            }
+            return Ok(send);
         }
     }
 }
