@@ -1,0 +1,1 @@
+ALTER TABLE seguranca.usuarios RENAME usuario TO email

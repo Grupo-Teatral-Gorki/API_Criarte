@@ -2,6 +2,7 @@
 using API_Criarte.Application.Interfaces;
 using API_Criarte.Application.Mappings;
 using API_Criarte.Application.Services;
+using API_Criarte.Application.Services.Gateway;
 using API_Criarte.Domain.Interfaces;
 using API_Criarte.Infra.Data.Context;
 using API_Criarte.Infra.Data.Repositories;
@@ -24,15 +25,20 @@ namespace API_Criarte
             builder.Services.AddDbContext<dbContext>(options =>
             options.UseNpgsql(LocalString));
 
+            AppContext.SetSwitch("Npgsql.EnableLegacyTimestampBehavior", true);
+
             // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
             builder.Services.AddEndpointsApiExplorer();
             builder.Services.AddSwaggerGen();
 
             //Respository
             builder.Services.AddScoped<ILoginRepository, LoginRepository>();
+            builder.Services.AddScoped<IProponenteRepository, ProponenteRepository>();
 
             //Services
             builder.Services.AddScoped<ILoginService, LoginService>();
+            builder.Services.AddScoped<IProponenteService, ProponenteService>();
+            builder.Services.AddScoped<ISendMailGateway, SendMailGateway>();
 
 
             builder.Services.AddAutoMapper(typeof(EntitiesToDTOMappingProfile));

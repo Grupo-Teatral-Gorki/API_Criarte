@@ -16,6 +16,9 @@ using API_Criarte.Domain.Models;
 using API_Criarte.Domain;
 using Microsoft.IdentityModel.Tokens;
 using System.IdentityModel.Tokens.Jwt;
+using System.Net.Mail;
+using System.Text.RegularExpressions;
+using API_Lib;
 
 namespace API_Criarte.Application.Services
 {
@@ -25,38 +28,135 @@ namespace API_Criarte.Application.Services
         private readonly IMapper _mapper;
         private readonly IConfiguration _config;
         private readonly ILoginRepository _repository;
+        private readonly ISendMailGateway _gateway;
 
-        public LoginService(dbContext dbContext, IMapper mapper, IConfiguration configuration, ILoginRepository repository)
+        public LoginService(dbContext dbContext, IMapper mapper, IConfiguration configuration, ILoginRepository repository, ISendMailGateway gateway)
         {
             _dbContext = dbContext;
             _mapper = mapper;
             _config = configuration;
             _repository = repository;
+            _gateway = gateway;
         }
 
-        public async Task<ApiResponse> CreateUser(UsuarioDTO usuario)
+        public async Task<ApiResponse<object>> CreateUser(UsuarioDTO usuario)
         {
+            ApiResponse<object> response = new ApiResponse<object>(true, "Erro ao criar login.");
+
+            if (ValidateUserAndPass(usuario, out response))
+            {
+                return response;
+            }
+
             usuario.Senha = GerarHashMd5(usuario.Senha);
             var user = _mapper.Map<Usuarios>(usuario);
-            return await _repository.CreateUser(user);
+
+            response = await _repository.CreateUser(user);
+
+            return response;
         }
 
-        public async Task<UsuarioLogadoDTO> AuthenticateUser(UsuarioDTO login)
+        public async Task<ApiResponse<UsuarioLogadoDTO>> AuthenticateUser(UsuarioDTO login)
         {
+            ApiResponse<UsuarioLogadoDTO> response = new ApiResponse<UsuarioLogadoDTO>(true, "Email e/ou senha inválido.");
             var user = _mapper.Map<Usuarios>(login);
+
             user.Senha = GerarHashMd5(login.Senha);
 
             var usuario = await _repository.GetUser(user);
 
-            UsuarioLogadoDTO logged = new UsuarioLogadoDTO
+            if(usuario == null)
             {
-                Id = usuario.IdUsuario,
-                Usuario = usuario.Usuario
-            };
+                return response;
+            }
+            else
+            {
+                UsuarioLogadoDTO logged = new UsuarioLogadoDTO
+                {
+                    Id = usuario.IdUsuario,
+                    Usuario = usuario.Usuario
+                };
+                response = new ApiResponse<UsuarioLogadoDTO>( false, "Login realizado com sucesso.", logged );
+            }
 
-            return logged;
+            
+            return response;
         }
 
+        public async Task<ApiResponse<string>> RecoveryPass(string email)
+        {
+            ApiResponse<string> response = new ApiResponse<string>(true, "Ocorreu um erro ao recuperar senha.");
+            if (Util.ValidEmail(email))
+            {
+                if (await _repository.VerifyExistingUser(email))
+                {
+                    ApiResponse<string> sended = _gateway.SendRecoveryMail(email);
+                    if (!sended.Error)
+                    {
+                        if(await _repository.SaveToken(email, sended.Data) == 1)
+                        {
+                            response = new ApiResponse<string>(false, "Email de recuperação enviado.");
+                        }
+                        else
+                        {
+                            response = new ApiResponse<string>(true, "Ocorreu um erro ao gravar o Token.");
+                        }
+                    }
+                    else
+                    {
+                        response = new ApiResponse<string>(true, "Erro ao enviar email.", sended.Message);
+                    }
+                }
+                else
+                {
+                    response = new ApiResponse<string>(true, "Usuário não encontrado.");
+                }
+            }
+            else
+            {
+                response = new ApiResponse<string>(true, "Email não é válido.");
+            }
+            return response;
+        }
+
+        public async Task<ApiResponse<string>> NewPass(string pass, string token)
+        {
+            if(Util.ValidPass(pass))
+            {
+                string hash = GerarHashMd5(pass);
+                Usuarios user =  await _repository.GetUserByToken(token);
+
+                if(user == null)
+                {
+                    return new ApiResponse<string>(true, "Token não encontrado.");
+                }
+                int min = Convert.ToInt32((DateTime.Now - user.ExpirationToken).Value.TotalMinutes);
+
+                if (min > 30)
+                {
+                    return new ApiResponse<string>(true, "Token expirado.");
+                }
+
+                user.Senha = hash;
+                user.Token = null;
+                user.ExpirationToken = null;
+                int updated = await _repository.UpdateUser(user);
+                if(updated > 0)
+                {
+                    return new ApiResponse<string>(false, "Nova senha registrada.");
+                }
+                else
+                {
+                    return new ApiResponse<string>(true, "Erro ao registrar nova senha.");
+                }
+            }
+            else
+            {
+                return new ApiResponse<string>(true, "Senha inválida.");
+            }
+        }
+
+        #region Funções Auxiliares
         private static string GerarHashMd5(string input)
         {
             MD5 md5Hash = MD5.Create();
@@ -88,5 +188,33 @@ namespace API_Criarte.Application.Services
                 signingCredentials: credentials);
             return new JwtSecurityTokenHandler().WriteToken(token);
         }
+
+        private bool ValidateUserAndPass(UsuarioDTO user, out ApiResponse<object> response)
+        {
+            bool email = Util.ValidEmail(user.Usuario);
+            bool pass = Util.ValidPass(user.Senha);
+            bool result = false;
+            response = new ApiResponse<object>(true, "Erro ao criar login.");
+
+            if (email && pass)
+            {
+                response = new ApiResponse<object>(false, "Usuario e senha válidos.");
+                result = false;
+            }
+            else if(!email)
+            {
+                response = new ApiResponse<object>(true, "Usuário inválido.");
+                result = true;
+            }
+            else if(!pass)
+            {
+                response = new ApiResponse<object>(true, "Senha inválida.");
+                result = true;
+            }
+            return result;
+        }
+
+
+        #endregion
     }
 }

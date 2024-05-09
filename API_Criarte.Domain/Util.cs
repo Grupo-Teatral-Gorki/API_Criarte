@@ -2,17 +2,17 @@
 using System.Configuration;
 using System.Drawing;
 using System.Net;
+using System.Net.Mail;
 using System.Security.Claims;
 using System.Security.Cryptography;
 using System.Security.Principal;
 using System.Text;
+using System.Text.RegularExpressions;
 
 namespace API_Lib
 {
     public static class Util
     {
-        private static string firebaseKey = "AIzaSyDycPVGwh6P6pyvs1ymgnvjLuUpDeZwbiw";
-        private static string firebaseUrl = "https://serodonto.page.link";
         public static int parseInt(object value, object default_value)
         {
             return Convert.ToInt32(value == null ? default_value : value);
@@ -36,46 +36,30 @@ namespace API_Lib
             return hex;
         }
 
-        public static string Encrypt(string toEncrypt, bool useHashing)
+        public static bool ValidEmail(string user)
         {
-            byte[] keyArray;
-            byte[] toEncryptArray = UTF8Encoding.UTF8.GetBytes(toEncrypt);
+            var valid = true;
 
-            System.Configuration.AppSettingsReader settingsReader =
-                                                new AppSettingsReader();
-            // Get the key from config file
-
-            string key = "ECFB481F90684B0EA6170D6E";
-            //System.Windows.Forms.MessageBox.Show(key);
-            //If hashing use get hashcode regards to your key
-            if (useHashing)
+            try
             {
-                MD5CryptoServiceProvider hashmd5 = new MD5CryptoServiceProvider();
-                keyArray = hashmd5.ComputeHash(UTF8Encoding.UTF8.GetBytes(key));
-                //Always release the resources and flush data
-                // of the Cryptographic service provide. Best Practice
-
-                hashmd5.Clear();
+                var emailAddress = new MailAddress(user);
             }
-            else
-                keyArray = UTF8Encoding.UTF8.GetBytes(key);
+            catch
+            {
+                valid = false;
+            }
 
-            TripleDESCryptoServiceProvider tdes = new TripleDESCryptoServiceProvider();
-            //set the secret key for the tripleDES algorithm
-            tdes.Key = keyArray;
-            //mode of operation. there are other 4 modes.
-            //We choose ECB(Electronic code Book)
-            tdes.Mode = CipherMode.ECB;
-            //padding mode(if any extra byte added)
-            tdes.Padding = PaddingMode.PKCS7;
+            return valid;
+        }
 
-            ICryptoTransform cTransform = tdes.CreateEncryptor();
-            //transform the specified region of bytes array to resultArray
-            byte[] resultArray = cTransform.TransformFinalBlock(toEncryptArray, 0, toEncryptArray.Length);
-            //Release resources held by TripleDes Encryptor
-            tdes.Clear();
-            //Return the encrypted data into unreadable string format
-            return Convert.ToBase64String(resultArray, 0, resultArray.Length);
+        public static bool ValidPass(string pass)
+        {
+            var hasNumber = new Regex(@"[0-9]+");
+            var hasUpperChar = new Regex(@"[A-Z]+");
+            var hasMinimum8Chars = new Regex(@".{8,}");
+
+            var isValidated = hasNumber.IsMatch(pass) && hasUpperChar.IsMatch(pass) && hasMinimum8Chars.IsMatch(pass);
+            return isValidated;
         }
     }
 
