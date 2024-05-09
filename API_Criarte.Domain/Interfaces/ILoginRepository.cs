@@ -10,7 +10,11 @@ namespace API_Criarte.Domain.Interfaces
 {
     public interface ILoginRepository
     {
-        Task<ApiResponse> CreateUser(Usuarios login);
+        Task<ApiResponse<object>> CreateUser(Usuarios login);
         Task<Usuarios> GetUser(Usuarios login);
+        Task<Usuarios> GetUserByToken(string token);
+        Task<int> UpdateUser(Usuarios user);
+        Task<bool> VerifyExistingUser(string usuario);
+        Task<int> SaveToken(string user, string token);
     }
 }
