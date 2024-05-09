@@ -14,7 +14,7 @@ namespace API_Criarte.Domain.Models
         [Key]
         [Column("id_usuario")]
         public int IdUsuario { get; set; }
-        [Column("usuario")]
+        [Column("email")]
         public string Usuario { get; set; }
         [Column("senha")]
         public string Senha { get; set; }
