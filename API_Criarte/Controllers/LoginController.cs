@@ -1,6 +1,7 @@
 ﻿using API_Criarte.Application.DTOs;
 using API_Criarte.Application.Interfaces;
 using API_Criarte.Domain;
+using API_Criarte.Domain.Models;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using System.ComponentModel.DataAnnotations;
@@ -21,6 +22,10 @@ namespace API_Criarte.Controllers
         [Route("~/api/usuarios/createuser/")]
         public async Task<IActionResult> CreateUser([Required][FromBody]UsuarioDTO usuario)
         {
+            if(usuario == null)
+            {
+                return BadRequest("Requisição não aceita por estar em um formato inválido.");
+            }
             ApiResponse<object> result = await _loginService.CreateUser(usuario);
             if(result.Error)
             {
@@ -49,6 +54,10 @@ namespace API_Criarte.Controllers
         [Route("~/api/usuarios/recovery/{email}")]
         public async Task<IActionResult> Recovery(string email)
         {
+            if (email == null)
+            {
+                return BadRequest("Requisição não aceita por estar em um formato inválido.");
+            }
             ApiResponse<string> send = await _loginService.RecoveryPass(email);
             if (send.Error)
             {
@@ -62,6 +71,10 @@ namespace API_Criarte.Controllers
         [Route("~/api/usuarios/newPass/")]
         public async Task<IActionResult> NewPass([Required] string pass, [Required] string token)
         {
+            if (token == null || pass == null)
+            {
+                return BadRequest("Requisição não aceita por estar em um formato inválido.");
+            }
             ApiResponse<string> send = await _loginService.NewPass(pass, token);
             if (send.Error)
             {
