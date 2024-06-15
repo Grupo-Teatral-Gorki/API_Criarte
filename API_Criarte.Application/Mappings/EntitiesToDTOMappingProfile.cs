@@ -11,6 +11,7 @@ namespace API_Criarte.Application.Mappings
             CreateMap<Usuarios, UsuarioDTO>().ReverseMap();
             CreateMap<Proponentes, ProponenteDTO>().ReverseMap();
             CreateMap<Proponentes, CreateProponenteDTO>().ReverseMap();
+            CreateMap<Modalidades, ModalidadesDTO>().ReverseMap();
         }
     }
 }

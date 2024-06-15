@@ -1,0 +1,2 @@
+CREATE SCHEMA geral
+CREATE SCHEMA seguranca
