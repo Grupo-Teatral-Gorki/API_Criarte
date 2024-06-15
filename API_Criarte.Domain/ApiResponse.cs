@@ -10,13 +10,19 @@ namespace API_Criarte.Domain
     {
         public bool Error { get; set; }
         public string Message { get; set; }
-        public T Data { get; set; }
+        public T? Data { get; set; }
 
         public ApiResponse(bool error, string message, T data = default(T))
         {
             Error = error;
             Message = message;
             Data = data;
+        }
+
+        public ApiResponse(bool error, string message)
+        {
+            Error = error;
+            Message = message;
         }
     }
 }
