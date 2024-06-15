@@ -13,5 +13,6 @@ namespace API_Criarte.Application.Interfaces
     {
         Task<ApiResponse<List<Modalidades>>> GetModalidades();
         Task<ApiResponse<string>> CreateModalidades(ModalidadesDTO modalidade);
+        Task<ApiResponse<string>> UpdateModalidade(Modalidades modalidade);
     }
 }

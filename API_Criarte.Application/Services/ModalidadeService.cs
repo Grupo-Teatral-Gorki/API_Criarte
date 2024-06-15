@@ -45,5 +45,15 @@ namespace API_Criarte.Application.Services
             }
             return new ApiResponse<string>(true, "Ocorreu um erro ao Criar a modalidade.");
         }
+
+        public async Task<ApiResponse<string>> UpdateModalidade(Modalidades modalidade)
+        {
+            int modalidades = await _modalidadeRepository.UpdateModalidade(modalidade);
+            if(modalidades > 0)
+            {
+                return new ApiResponse<string>(false, "Modalidade atualizada com sucesso.");
+            }
+            return new ApiResponse<string>(true, "Ocorreu um erro ao atualizar a modalidade.");
+        }
     }
 }

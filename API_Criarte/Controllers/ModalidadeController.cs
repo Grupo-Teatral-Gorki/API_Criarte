@@ -38,5 +38,17 @@ namespace API_Criarte.Controllers
             }
             return Ok(result.Message);
         }
+
+        [HttpPost]
+        [Route("~/api/modalidades/updateModalidade")]
+        public async Task<IActionResult> UpdateModalidade([FromBody]Modalidades modalidade)
+        {
+            ApiResponse<string> result = await _modalidadeService.UpdateModalidade(modalidade);
+            if (result.Error)
+            {
+                return NotFound(result.Message);
+            }
+            return Ok(result.Message);
+        }
     }
 }

@@ -32,5 +32,13 @@ namespace API_Criarte.Infra.Data.Repositories
 
             return saved_modalidade;
         }
+
+        public async Task<int> UpdateModalidade(Modalidades modalidade)
+        {
+            _dbContext.Modalidades.Update(modalidade);
+            var saved_modalidade = await _dbContext.SaveChangesAsync();
+
+            return saved_modalidade;
+        }
     }
 }

@@ -11,5 +11,6 @@ namespace API_Criarte.Domain.Interfaces
     {
         Task<List<Modalidades>> GetModalidades();
         Task<int> CreateModalidade(Modalidades modalidade);
+        Task<int> UpdateModalidade(Modalidades modalidade);
     }
 }
