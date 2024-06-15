@@ -20,6 +20,7 @@ public partial class dbContext : DbContext
     public virtual DbSet<Usuarios> Usuarios { get; set; }
     public virtual DbSet<Proponentes> Proponentes { get; set; }
     public virtual DbSet<Modalidades> Modalidades { get; set; }
+    public virtual DbSet<Edital> Edital { get; set; }
 
     //partial void OnModelCreatingPartial(ModelBuilder modelBuilder);
 }

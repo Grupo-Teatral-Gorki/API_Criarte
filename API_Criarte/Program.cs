@@ -35,11 +35,13 @@ namespace API_Criarte
             builder.Services.AddScoped<ILoginRepository, LoginRepository>();
             builder.Services.AddScoped<IProponenteRepository, ProponenteRepository>();
             builder.Services.AddScoped<IModalidadeRepository, ModalidadeRepository>();
+            builder.Services.AddScoped<IEditalRepository, EditalRepository>();
 
             //Services
             builder.Services.AddScoped<ILoginService, LoginService>();
             builder.Services.AddScoped<IProponenteService, ProponenteService>();
             builder.Services.AddScoped<IModalidadeService, ModalidadeService>();
+            builder.Services.AddScoped<IEditalService, EditalService>();
 
             builder.Services.AddScoped<ISendMailGateway, SendMailGateway>();
 
