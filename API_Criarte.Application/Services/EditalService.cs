@@ -36,9 +36,9 @@ namespace API_Criarte.Application.Services
             return new ApiResponse<List<Edital>>(true, "Nenhum edital encontrado.");
         }
 
-        public async Task<ApiResponse<string>> CreateEdital(EditalDTO modalidade)
+        public async Task<ApiResponse<string>> CreateEdital(EditalDTO dados)
         {
-            int edital = await _editalRepository.CreateEdital(_mapper.Map<Edital>(modalidade));
+            int edital = await _editalRepository.CreateEdital(_mapper.Map<Edital>(dados));
             if (edital > 0)
             {
                 return new ApiResponse<string>(false, "Edital criado com sucesso.");
@@ -46,9 +46,9 @@ namespace API_Criarte.Application.Services
             return new ApiResponse<string>(true, "Ocorreu um erro ao Criar o edital.");
         }
 
-        public async Task<ApiResponse<string>> UpdateModalidade(Edital modalidade)
+        public async Task<ApiResponse<string>> UpdateModalidade(Edital dados)
         {
-            int edital = await _editalRepository.UpdateEdital(modalidade);
+            int edital = await _editalRepository.UpdateEdital(dados);
             if (edital > 0)
             {
                 return new ApiResponse<string>(false, "Edital atualizado com sucesso.");

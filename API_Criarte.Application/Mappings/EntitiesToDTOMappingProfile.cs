@@ -13,6 +13,7 @@ namespace API_Criarte.Application.Mappings
             CreateMap<Proponentes, CreateProponenteDTO>().ReverseMap();
             CreateMap<Modalidades, ModalidadesDTO>().ReverseMap();
             CreateMap<Edital, EditalDTO>().ReverseMap();
+            CreateMap<Segmento, SegmentoDTO>().ReverseMap();
         }
     }
 }
