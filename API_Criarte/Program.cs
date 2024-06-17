@@ -37,6 +37,17 @@ namespace API_Criarte
             builder.Services.AddScoped<IModalidadeRepository, ModalidadeRepository>();
             builder.Services.AddScoped<IEditalRepository, EditalRepository>();
             builder.Services.AddScoped<ISegmentoRepository, SegmentoRepository>();
+            builder.Services.AddScoped<IDespesasRepository, DespesasRepository>();
+            builder.Services.AddScoped<IDetentoresRepository, DetentoresRepository>();
+            builder.Services.AddScoped<IFontesFinanciamentoRepository, FontesFinanciamentoRepository>();
+            builder.Services.AddScoped<IFonteFinanciamentoRepository, FonteFinanciamentoRepository>();
+            builder.Services.AddScoped<IGrupoDespesasRepository, GrupoDespesasRepository>();
+            builder.Services.AddScoped<IIntegrantesRepository, IntegrantesRepository>();
+            builder.Services.AddScoped<ILocaisRepository, LocaisRepository>();
+            builder.Services.AddScoped<IProjetoRepository, ProjetoRepository>();
+            builder.Services.AddScoped<IResponsaveisTecnicosRepository, ResponsaveisTecnicosRepository>();
+            builder.Services.AddScoped<IRubricaRepository, RubricaRepository>();
+            builder.Services.AddScoped<ITipoUnidadeRepository, TipoUnidadeRepository>();
 
             //Services
             builder.Services.AddScoped<ILoginService, LoginService>();
@@ -44,6 +55,7 @@ namespace API_Criarte
             builder.Services.AddScoped<IModalidadeService, ModalidadeService>();
             builder.Services.AddScoped<IEditalService, EditalService>();
             builder.Services.AddScoped<ISegmentoService, SegmentoService>();
+            builder.Services.AddScoped<IProjetoService, ProjetoService>();
 
             builder.Services.AddScoped<ISendMailGateway, SendMailGateway>();
 
