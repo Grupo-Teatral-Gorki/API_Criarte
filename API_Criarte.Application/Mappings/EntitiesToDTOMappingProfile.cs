@@ -14,6 +14,13 @@ namespace API_Criarte.Application.Mappings
             CreateMap<Modalidades, ModalidadesDTO>().ReverseMap();
             CreateMap<Edital, EditalDTO>().ReverseMap();
             CreateMap<Segmento, SegmentoDTO>().ReverseMap();
+            CreateMap<Projeto, CreateProjetoDTO>().ReverseMap();
+            CreateMap<FontesFinanciamento, FontesFinanciamentoDTO>().ReverseMap();
+            CreateMap<Despesas, DespesasDTO>().ReverseMap();
+            CreateMap<ResponsaveisTecnicos, ResponsaveisTecnicosDTO>().ReverseMap();
+            CreateMap<Locais, LocaisDTO>().ReverseMap();
+            CreateMap<Integrantes, IntegrantesDTO>().ReverseMap();
+            CreateMap<Detentores, DetentoresDTO>().ReverseMap();
         }
     }
 }

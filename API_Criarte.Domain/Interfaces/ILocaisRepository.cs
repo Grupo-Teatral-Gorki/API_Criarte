@@ -10,7 +10,8 @@ namespace API_Criarte.Domain.Interfaces
     public interface ILocaisRepository
     {
         Task<List<Locais>> GetLocais();
-        Task<int> CreateLocais(Locais local);
+        Task<List<Locais>> GetLocaisById(int idProjeto);
+        Task<Locais> CreateLocais(Locais local);
         Task<int> UpdateLocais(Locais local);
     }
 }

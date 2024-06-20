@@ -10,7 +10,8 @@ namespace API_Criarte.Domain.Interfaces
     public interface IDespesasRepository
     {
         Task<List<Despesas>> GetDespesas();
-        Task<int> CreateDespesas(Despesas despesa);
+        Task<Despesas> CreateDespesas(Despesas despesa);
         Task<int> UpdateDespesas(Despesas despesa);
+        Task<List<Despesas>> GetDespesasById(int idProjeto);
     }
 }

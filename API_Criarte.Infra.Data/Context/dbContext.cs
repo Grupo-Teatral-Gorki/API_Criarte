@@ -32,7 +32,7 @@ public partial class dbContext : DbContext
     public virtual DbSet<ResponsaveisTecnicos> ResponsaveisTecnicos { get; set; }
     public virtual DbSet<Locais> Locais { get; set; }
     public virtual DbSet<Integrantes> Integrantes { get; set; }
-    public DbSet<Detentores> Detentores { get; set; }
+    public virtual DbSet<Detentores> Detentores { get; set; }
 
     //partial void OnModelCreatingPartial(ModelBuilder modelBuilder);
 }

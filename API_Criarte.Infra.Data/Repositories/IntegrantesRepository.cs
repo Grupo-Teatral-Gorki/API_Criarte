@@ -25,12 +25,18 @@ namespace API_Criarte.Infra.Data.Repositories
             return integrantes;
         }
 
-        public async Task<int> CreateIntegrantes(Integrantes integrante)
+        public async Task<List<Integrantes>> GetIntegrantesById(int idProjeto)
+        {
+            var integrantes = await _dbContext.Integrantes.AsNoTracking().Where(x => x.IdProjeto.Equals(idProjeto)).ToListAsync();
+            return integrantes;
+        }
+
+        public async Task<Integrantes> CreateIntegrantes(Integrantes integrante)
         {
             await _dbContext.Integrantes.AddAsync(integrante);
-            var saved_integrante = _dbContext.SaveChanges();
+            _dbContext.SaveChanges();
 
-            return saved_integrante;
+            return integrante;
         }
 
         public async Task<int> UpdateIntegrantes(Integrantes integrante)

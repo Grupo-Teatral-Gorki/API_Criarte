@@ -10,7 +10,8 @@ namespace API_Criarte.Domain.Interfaces
     public interface IFontesFinanciamentoRepository
     {
         Task<List<FontesFinanciamento>> GetFontesFinanciamento();
-        Task<int> CreateFontesFinanciamento(FontesFinanciamento fontes);
+        Task<List<FontesFinanciamento>> GetFontesFinanciamentoById(int idProjeto);
+        Task<FontesFinanciamento> CreateFontesFinanciamento(FontesFinanciamento fontes);
         Task<int> UpdateFontesFinanciamento(FontesFinanciamento fontes);
     }
 }

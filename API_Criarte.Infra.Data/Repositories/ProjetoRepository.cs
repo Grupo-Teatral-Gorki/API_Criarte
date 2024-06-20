@@ -28,9 +28,9 @@ namespace API_Criarte.Infra.Data.Repositories
         public async Task<int> CreateProjeto(Projeto projeto)
         {
             await _dbContext.Projeto.AddAsync(projeto);
-            var saved_projeto = _dbContext.SaveChanges();
+            _dbContext.SaveChanges();
 
-            return saved_projeto;
+            return projeto.IdProjeto;
         }
 
         public async Task<int> UpdateProjeto(Projeto projeto)

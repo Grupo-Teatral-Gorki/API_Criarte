@@ -10,7 +10,8 @@ namespace API_Criarte.Domain.Interfaces
     public interface IDetentoresRepository
     {
         Task<List<Detentores>> GetDetentores();
-        Task<int> CreateDetentores(Detentores detentor);
+        Task<List<Detentores>> GetDetentoresById(int idProjeto);
+        Task<Detentores> CreateDetentores(Detentores detentor);
         Task<int> UpdateDetentores(Detentores detentor);
     }
 }

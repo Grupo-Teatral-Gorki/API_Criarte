@@ -25,12 +25,18 @@ namespace API_Criarte.Infra.Data.Repositories
             return locais;
         }
 
-        public async Task<int> CreateLocais(Locais local)
+        public async Task<List<Locais>> GetLocaisById(int idProjeto)
+        {
+            var locais = await _dbContext.Locais.AsNoTracking().Where(x => x.IdProjeto.Equals(idProjeto)).ToListAsync();
+            return locais;
+        }
+
+        public async Task<Locais> CreateLocais(Locais local)
         {
             await _dbContext.Locais.AddAsync(local);
-            var saved_local = _dbContext.SaveChanges();
+            _dbContext.SaveChanges();
 
-            return saved_local;
+            return local;
         }
 
         public async Task<int> UpdateLocais(Locais local)

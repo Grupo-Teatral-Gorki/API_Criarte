@@ -40,6 +40,6 @@ namespace API_Criarte.Domain.Models
         public decimal? ValorUnitario { get; set; }
 
         [Column("observacao")]
-        public string Observacao { get; set; }
+        public string? Observacao { get; set; }
     }
 }

@@ -10,7 +10,8 @@ namespace API_Criarte.Domain.Interfaces
     public interface IIntegrantesRepository
     {
         Task<List<Integrantes>> GetIntegrantes();
-        Task<int> CreateIntegrantes(Integrantes integrante);
+        Task<List<Integrantes>> GetIntegrantesById(int idProjeto);
+        Task<Integrantes> CreateIntegrantes(Integrantes integrante);
         Task<int> UpdateIntegrantes(Integrantes integrante);
     }
 }

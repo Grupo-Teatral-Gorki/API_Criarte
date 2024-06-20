@@ -25,12 +25,18 @@ namespace API_Criarte.Infra.Data.Repositories
             return detentores;
         }
 
-        public async Task<int> CreateDetentores(Detentores detentor)
+        public async Task<List<Detentores>> GetDetentoresById(int idProjeto)
+        {
+            var detentores = await _dbContext.Detentores.AsNoTracking().Where(x => x.IdProjeto.Equals(idProjeto)).ToListAsync();
+            return detentores;
+        }
+
+        public async Task<Detentores> CreateDetentores(Detentores detentor)
         {
             await _dbContext.Detentores.AddAsync(detentor);
-            var saved_detentor = _dbContext.SaveChanges();
+            _dbContext.SaveChanges();
 
-            return saved_detentor;
+            return detentor;
         }
 
         public async Task<int> UpdateDetentores(Detentores detentor)

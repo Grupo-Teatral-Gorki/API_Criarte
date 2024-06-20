@@ -25,12 +25,18 @@ namespace API_Criarte.Infra.Data.Repositories
             return fontes;
         }
 
-        public async Task<int> CreateFontesFinanciamento(FontesFinanciamento fontes)
+        public async Task<List<FontesFinanciamento>> GetFontesFinanciamentoById(int idProjeto)
+        {
+            var fontes = await _dbContext.FontesFinanciamento.AsNoTracking().Where(x => x.IdProjeto.Equals(idProjeto)).ToListAsync();
+            return fontes;
+        }
+
+        public async Task<FontesFinanciamento> CreateFontesFinanciamento(FontesFinanciamento fontes)
         {
             await _dbContext.FontesFinanciamento.AddAsync(fontes);
-            var saved_fontes = _dbContext.SaveChanges();
+            _dbContext.SaveChanges();
 
-            return saved_fontes;
+            return fontes;
         }
 
         public async Task<int> UpdateFontesFinanciamento(FontesFinanciamento fontes)

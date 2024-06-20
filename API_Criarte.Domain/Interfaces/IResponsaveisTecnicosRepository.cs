@@ -10,7 +10,8 @@ namespace API_Criarte.Domain.Interfaces
     public interface IResponsaveisTecnicosRepository
     {
         Task<List<ResponsaveisTecnicos>> GetResponsaveisTecnicos();
-        Task<int> CreateResponsaveisTecnicos(ResponsaveisTecnicos responsavel);
+        Task<List<ResponsaveisTecnicos>> GetResponsaveisTecnicosById(int idProjeto);
+        Task<ResponsaveisTecnicos> CreateResponsaveisTecnicos(ResponsaveisTecnicos responsavel);
         Task<int> UpdateResponsaveisTecnicos(ResponsaveisTecnicos responsavel);
     }
 }

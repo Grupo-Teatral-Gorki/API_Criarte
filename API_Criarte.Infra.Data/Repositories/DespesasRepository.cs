@@ -25,12 +25,18 @@ namespace API_Criarte.Infra.Data.Repositories
             return despesas;
         }
 
-        public async Task<int> CreateDespesas(Despesas despesa)
+        public async Task<List<Despesas>> GetDespesasById(int idProjeto)
+        {
+            var despesas = await _dbContext.Despesas.AsNoTracking().Where(x => x.IdProjeto.Equals(idProjeto)).ToListAsync();
+            return despesas;
+        }
+
+        public async Task<Despesas> CreateDespesas(Despesas despesa)
         {
             await _dbContext.Despesas.AddAsync(despesa);
-            var saved_despesa = _dbContext.SaveChanges();
+            _dbContext.SaveChanges();
 
-            return saved_despesa;
+            return despesa;
         }
 
         public async Task<int> UpdateDespesas(Despesas despesa)

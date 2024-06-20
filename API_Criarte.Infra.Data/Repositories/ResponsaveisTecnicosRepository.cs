@@ -25,12 +25,18 @@ namespace API_Criarte.Infra.Data.Repositories
             return responsaveis;
         }
 
-        public async Task<int> CreateResponsaveisTecnicos(ResponsaveisTecnicos responsavel)
+        public async Task<List<ResponsaveisTecnicos>> GetResponsaveisTecnicosById(int idProjeto)
+        {
+            var responsaveis = await _dbContext.ResponsaveisTecnicos.AsNoTracking().Where(x => x.IdProjeto.Equals(idProjeto)).ToListAsync();
+            return responsaveis;
+        }
+
+        public async Task<ResponsaveisTecnicos> CreateResponsaveisTecnicos(ResponsaveisTecnicos responsavel)
         {
             await _dbContext.ResponsaveisTecnicos.AddAsync(responsavel);
-            var saved_responsavel = _dbContext.SaveChanges();
+            _dbContext.SaveChanges();
 
-            return saved_responsavel;
+            return responsavel;
         }
 
         public async Task<int> UpdateResponsaveisTecnicos(ResponsaveisTecnicos responsavel)

@@ -14,7 +14,7 @@ INSERT INTO geral.fontes_financiamento (nome_fonte) VALUES
 CREATE TABLE projeto.fontes_financiamento (
     id SERIAL PRIMARY KEY,
     id_projeto INTEGER NOT NULL,
-    tipo_fonte_financiamento INTEGER NOT NULL,
+    tipo_fonte_financiamento VARCHAR(20) NOT NULL,
     id_fonte_financiamento INTEGER NOT NULL,
     valor_financiamento NUMERIC(15, 2) NOT NULL,
     fonte_financiamento_externa VARCHAR(255)

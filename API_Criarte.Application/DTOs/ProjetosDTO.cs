@@ -15,5 +15,7 @@ namespace API_Criarte.Application.DTOs
         public string Modalidade { get; set; }
         public string Proponente { get; set; }
         public string Status { get; set; }
+        public DateTime DataInicial { get; set; }
+        public DateTime DataFinal { get; set; }
     }
 }
