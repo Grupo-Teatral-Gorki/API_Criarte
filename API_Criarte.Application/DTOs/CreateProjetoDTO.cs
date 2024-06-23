@@ -43,5 +43,7 @@ namespace API_Criarte.Application.DTOs
         public int IdModalidade { get; set; }
 
         public string Status { get; set; } = "Rascunho";
+
+        public int IdUsuario { get; set; }
     }
 }

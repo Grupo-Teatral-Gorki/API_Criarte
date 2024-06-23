@@ -2,6 +2,7 @@
 using API_Criarte.Application.Interfaces;
 using API_Criarte.Domain;
 using API_Criarte.Domain.Models;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace API_Criarte.Controllers
@@ -15,6 +16,7 @@ namespace API_Criarte.Controllers
             _modalidadeService = modalidadeService;
         }
 
+        [Authorize]
         [HttpGet]
         [Route("~/api/modalidades")]
         public async Task<IActionResult> GetModalidades()
@@ -27,6 +29,7 @@ namespace API_Criarte.Controllers
             return Ok(result);
         }
 
+        [Authorize]
         [HttpPut]
         [Route("~/api/modalidades/createModalidade")]
         public async Task<IActionResult> CreateModalidades([FromBody]ModalidadesDTO modalidade)
@@ -39,6 +42,7 @@ namespace API_Criarte.Controllers
             return Ok(result.Message);
         }
 
+        [Authorize]
         [HttpPost]
         [Route("~/api/modalidades/updateModalidade")]
         public async Task<IActionResult> UpdateModalidade([FromBody]Modalidades modalidade)

@@ -3,6 +3,7 @@ using API_Criarte.Application.Interfaces;
 using API_Criarte.Domain.Models;
 using API_Criarte.Domain;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Authorization;
 
 namespace API_Criarte.Controllers
 {
@@ -15,6 +16,7 @@ namespace API_Criarte.Controllers
             _segmentoService = segmentoService;
         }
 
+        [Authorize]
         [HttpGet]
         [Route("~/api/segmento")]
         public async Task<IActionResult> GetSegmentos()
@@ -27,6 +29,7 @@ namespace API_Criarte.Controllers
             return Ok(result);
         }
 
+        [Authorize]
         [HttpPut]
         [Route("~/api/segmento/createSegmento")]
         public async Task<IActionResult> CreateSegmento([FromBody] SegmentoDTO segmento)
@@ -39,6 +42,7 @@ namespace API_Criarte.Controllers
             return Ok(result.Message);
         }
 
+        [Authorize]
         [HttpPost]
         [Route("~/api/segmento/updateSegmento")]
         public async Task<IActionResult> UpdateModalidade([FromBody] Segmento segmento)

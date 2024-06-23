@@ -4,7 +4,9 @@ using API_Criarte.Domain;
 using API_Criarte.Domain.Interfaces;
 using API_Criarte.Domain.Models;
 using API_Criarte.Infra.Data.Context;
+using API_Lib;
 using AutoMapper;
+using Microsoft.AspNetCore.Http;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.IdentityModel.Tokens;
 using System;
@@ -33,12 +35,15 @@ namespace API_Criarte.Application.Services
         private readonly dbContext dbContext;
         private readonly IMapper mapper;
 
+        private readonly IHttpContextAccessor user;
+        private int id_usuario;
+
         public ProjetoService(ISegmentoRepository segmentoRepository, IFontesFinanciamentoRepository fontesFinanciamentoRepository, 
             IFonteFinanciamentoRepository fonteFinanciamentoRepository, IProjetoRepository projetoRepository, 
             IGrupoDespesasRepository grupoDespesasRepository, IRubricaRepository rubricaRepository, ITipoUnidadeRepository tipoUnidadeRepository, 
             IDespesasRepository despesasRepository, IResponsaveisTecnicosRepository responsaveisTecnicosRepository, 
             ILocaisRepository locaisRepository, IIntegrantesRepository integrantesRepository, IDetentoresRepository detentoresRepository, 
-            dbContext dbContext, IMapper mapper)
+            dbContext dbContext, IMapper mapper, IHttpContextAccessor user)
         {
             this.segmentoRepository = segmentoRepository;
             this.fontesFinanciamentoRepository = fontesFinanciamentoRepository;
@@ -54,11 +59,19 @@ namespace API_Criarte.Application.Services
             this.detentoresRepository = detentoresRepository;
             this.dbContext = dbContext;
             this.mapper = mapper;
+            this.user = user;
+
+            id_usuario = Convert.ToInt32(AlterClaim.GetClaimValue(this.user.HttpContext.User, "id_usuario"));
         }
 
         public async Task<ApiResponse<List<ProjetosDTO>>> GetProjetos()
         {
+            if (id_usuario <= 0)
+            {
+                return new ApiResponse<List<ProjetosDTO>>(true, "Não é um usuario valido");
+            }
             var projetos = await (from x in dbContext.Projeto
+                                  where x.IdUsuario == id_usuario
                                   join p in dbContext.Proponentes on x.IdProponente equals p.IdProponente into pGroup
                                   from p in pGroup.DefaultIfEmpty()
                                   join e in dbContext.Edital on x.IdEdital equals e.IdEdital into eGroup
@@ -89,8 +102,12 @@ namespace API_Criarte.Application.Services
 
         public async Task<ApiResponse<ProjetoCompletoDTO>> GetProjetoById(int idProjeto)
         {
+            if (id_usuario <= 0)
+            {
+                return new ApiResponse<ProjetoCompletoDTO>(true, "Não é um usuario valido");
+            }
             var projeto = await (from x in dbContext.Projeto
-                                  where x.IdProjeto == idProjeto
+                                  where x.IdProjeto == idProjeto && x.IdUsuario == id_usuario
                                   select new ProjetoCompletoDTO()
                                   {
                                       Projeto = x,
@@ -127,10 +144,15 @@ namespace API_Criarte.Application.Services
 
         public async Task<ApiResponse<ProjetoCompletoDTO>> CreateProjeto(int idEdital, int idModalidade)
         {
+            if(id_usuario <= 0)
+            {
+                return new ApiResponse<ProjetoCompletoDTO>(true, "Não é um usuario valido");
+            }
             CreateProjetoDTO projetoDTO = new CreateProjetoDTO
             {
                 IdEdital = idEdital,
-                IdModalidade = idModalidade
+                IdModalidade = idModalidade,
+                IdUsuario = id_usuario
             };
             Projeto projeto = mapper.Map<Projeto>(projetoDTO);
 

@@ -65,5 +65,8 @@ namespace API_Criarte.Domain.Models
 
         [Column("status")]
         public string? Status { get; set; }
+
+        [Column("id_usuario")]
+        public int IdUsuario { get; set; }
     }
 }

@@ -17,6 +17,7 @@ namespace API_Criarte.Controllers
             _proponenteService = proponenteService;
         }
 
+        [Authorize]
         [HttpGet]
         [Route("~/api/proponentes/getproponente/{id_proponente}")]
         public async Task<IActionResult> GetProponente(int id_proponente)

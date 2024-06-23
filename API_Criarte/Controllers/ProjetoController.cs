@@ -4,6 +4,7 @@ using API_Criarte.Domain;
 using Microsoft.AspNetCore.Mvc;
 using API_Criarte.Application.DTOs;
 using System.ComponentModel.DataAnnotations;
+using Microsoft.AspNetCore.Authorization;
 
 namespace API_Criarte.Controllers
 {
@@ -16,6 +17,7 @@ namespace API_Criarte.Controllers
             _projetoService = projetoService;
         }
 
+        [Authorize]
         [HttpGet]
         [Route("~/api/projeto/listaProjetos")]
         public async Task<IActionResult> GetProjetos()
@@ -28,6 +30,7 @@ namespace API_Criarte.Controllers
             return Ok(result);
         }
 
+        [Authorize]
         [HttpGet]
         [Route("~/api/projeto/Projeto/{idProjeto}")]
         public async Task<IActionResult> GetProjeto(int idProjeto)
@@ -40,6 +43,7 @@ namespace API_Criarte.Controllers
             return Ok(result);
         }
 
+        [Authorize]
         [HttpPut]
         [Route("~/api/projeto/createProjeto/")]
         public async Task<IActionResult> createProjeto([Required]int idEdital, [Required] int idModalidade)
@@ -52,6 +56,7 @@ namespace API_Criarte.Controllers
             return Ok(result);
         }
 
+        [Authorize]
         [HttpPost]
         [Route("~/api/projeto/updateProjeto/")]
         public async Task<IActionResult> updateProjeto([FromBody]Projeto projeto)
@@ -64,6 +69,7 @@ namespace API_Criarte.Controllers
             return Ok(result);
         }
 
+        [Authorize]
         [HttpGet]
         [Route("~/api/projeto/fontesFinanceiras/{idProjeto}")]
         public async Task<IActionResult> GetFontesFinanceiras(int idProjeto)
@@ -76,6 +82,7 @@ namespace API_Criarte.Controllers
             return Ok(result);
         }
 
+        [Authorize]
         [HttpPut]
         [Route("~/api/projeto/createFontesFinanceiras")]
         public async Task<IActionResult> CreateFontesFinanceiras([FromBody]FontesFinanciamentoDTO fonteDTO)
@@ -88,6 +95,7 @@ namespace API_Criarte.Controllers
             return Ok(result);
         }
 
+        [Authorize]
         [HttpGet]
         [Route("~/api/projeto/Despesas/{idProjeto}")]
         public async Task<IActionResult> GetDespesas(int idProjeto)
@@ -100,6 +108,7 @@ namespace API_Criarte.Controllers
             return Ok(result);
         }
 
+        [Authorize]
         [HttpPut]
         [Route("~/api/projeto/createDespesas")]
         public async Task<IActionResult> CreateDespesas([FromBody] DespesasDTO fonteDTO)
@@ -112,6 +121,7 @@ namespace API_Criarte.Controllers
             return Ok(result);
         }
 
+        [Authorize]
         [HttpGet]
         [Route("~/api/projeto/Responsaveis/{idProjeto}")]
         public async Task<IActionResult> GetResponsaveis(int idProjeto)
@@ -124,6 +134,7 @@ namespace API_Criarte.Controllers
             return Ok(result);
         }
 
+        [Authorize]
         [HttpPut]
         [Route("~/api/projeto/createResponsaveis")]
         public async Task<IActionResult> CreateResponsaveis([FromBody] ResponsaveisTecnicosDTO fonteDTO)
@@ -136,6 +147,7 @@ namespace API_Criarte.Controllers
             return Ok(result);
         }
 
+        [Authorize]
         [HttpGet]
         [Route("~/api/projeto/Locais/{idProjeto}")]
         public async Task<IActionResult> GetLocais(int idProjeto)
@@ -148,6 +160,7 @@ namespace API_Criarte.Controllers
             return Ok(result);
         }
 
+        [Authorize]
         [HttpPut]
         [Route("~/api/projeto/createLocais")]
         public async Task<IActionResult> CreateLocais([FromBody] LocaisDTO fonteDTO)
@@ -160,6 +173,7 @@ namespace API_Criarte.Controllers
             return Ok(result);
         }
 
+        [Authorize]
         [HttpGet]
         [Route("~/api/projeto/Integrantes/{idProjeto}")]
         public async Task<IActionResult> GetIntegrantes(int idProjeto)
@@ -172,6 +186,7 @@ namespace API_Criarte.Controllers
             return Ok(result);
         }
 
+        [Authorize]
         [HttpPut]
         [Route("~/api/projeto/createIntegrantes")]
         public async Task<IActionResult> CreateIntegrantes([FromBody] IntegrantesDTO fonteDTO)
@@ -184,6 +199,7 @@ namespace API_Criarte.Controllers
             return Ok(result);
         }
 
+        [Authorize]
         [HttpGet]
         [Route("~/api/projeto/Detentores/{idProjeto}")]
         public async Task<IActionResult> GetDetentores(int idProjeto)
@@ -196,6 +212,7 @@ namespace API_Criarte.Controllers
             return Ok(result);
         }
 
+        [Authorize]
         [HttpPut]
         [Route("~/api/projeto/createDetentores")]
         public async Task<IActionResult> CreateDetentores([FromBody] DetentoresDTO fonteDTO)
