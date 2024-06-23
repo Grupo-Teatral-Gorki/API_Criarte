@@ -7,6 +7,12 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <PackageReference Include="Swashbuckle.AspNetCore.Swagger" Version="6.6.2" />
+    <PackageReference Include="Swashbuckle.AspNetCore.SwaggerGen" Version="6.6.2" />
+    <PackageReference Include="Swashbuckle.AspNetCore.SwaggerUI" Version="6.6.2" />
+  </ItemGroup>
+
+  <ItemGroup>
     <ProjectReference Include="..\API_Criarte.Application\API_Criarte.Application.csproj" />
     <ProjectReference Include="..\API_Criarte.Domain\API_Criarte.Domain.csproj" />
     <ProjectReference Include="..\API_Criarte.Infra.Data\API_Criarte.Infra.Data.csproj" />

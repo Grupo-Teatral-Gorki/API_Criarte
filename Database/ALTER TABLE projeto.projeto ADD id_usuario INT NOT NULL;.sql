@@ -1,0 +1,1 @@
+ALTER TABLE projeto.projeto ADD id_usuario INT NOT NULL;
