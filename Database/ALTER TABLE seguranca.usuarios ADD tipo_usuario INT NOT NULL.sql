@@ -1,0 +1,1 @@
+ALTER TABLE seguranca.usuarios ADD tipo_usuario INT NOT NULL;
