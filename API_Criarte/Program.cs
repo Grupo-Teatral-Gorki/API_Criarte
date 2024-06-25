@@ -1,4 +1,5 @@
 
+using API_Criarte.Application.DTOs;
 using API_Criarte.Application.Interfaces;
 using API_Criarte.Application.Mappings;
 using API_Criarte.Application.Services;
@@ -88,6 +89,17 @@ namespace API_Criarte
             {
                 builder.WithOrigins("*").AllowAnyMethod().AllowAnyHeader();
             }));
+
+            string AwsBucketName = Environment.GetEnvironmentVariable("AwsBucketName");
+            string AwsKeyID = Environment.GetEnvironmentVariable("AwsKeyID");
+            string AwsKeySecret = Environment.GetEnvironmentVariable("AwsKeySecret");
+
+            builder.Services.Configure<AwsVariablesDTO>(options =>
+            {
+                options.bucketName = AwsBucketName ?? "";
+                options.AwsKeyID = AwsKeyID ?? "";
+                options.AwsKeySecret = AwsKeySecret ?? "";
+            });
 
             var app = builder.Build();
 
