@@ -33,6 +33,8 @@ public partial class dbContext : DbContext
     public virtual DbSet<Locais> Locais { get; set; }
     public virtual DbSet<Integrantes> Integrantes { get; set; }
     public virtual DbSet<Detentores> Detentores { get; set; }
+    public virtual DbSet<DocumentosProjeto> DocumentosProjeto { get; set; }
+    public virtual DbSet<DocumentosProponente> DocumentosProponente { get; set; }
 
     //partial void OnModelCreatingPartial(ModelBuilder modelBuilder);
 }

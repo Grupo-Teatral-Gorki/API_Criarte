@@ -33,7 +33,7 @@ namespace API_Criarte.Application.Gateway
 
             var config = new AmazonS3Config
             {
-                RegionEndpoint = RegionEndpoint.SAEast1
+                RegionEndpoint = RegionEndpoint.USEast1
             };
 
             _awsS3Client = new AmazonS3Client(AWSCredentials, config);
