@@ -32,5 +32,21 @@ namespace API_Criarte.Controllers
 
             return Ok(result);
         }
+
+        //[Authorize]
+        [Route("~/api/docProjeto/Get")]
+        [HttpGet]
+        [ProducesResponseType(200)]
+        [ProducesResponseType(500)]
+        public async Task<ActionResult<ApiResponse<string>>> GetProjectDoc([Required] int id_projeto, [Required] int id_tipo, [Required] int id_documento)
+        {
+            ApiResponse<string> result = await _projetoService.GetDocumentoProjeto(id_projeto, id_tipo, id_documento);
+            if (result.Error)
+            {
+                BadRequest(result);
+            }
+
+            return Ok(result);
+        }
     }
 }

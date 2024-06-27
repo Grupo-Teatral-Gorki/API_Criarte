@@ -61,6 +61,14 @@ namespace API_Lib
             var isValidated = hasNumber.IsMatch(pass) && hasUpperChar.IsMatch(pass) && hasMinimum8Chars.IsMatch(pass);
             return isValidated;
         }
+
+        public static string getFormatoArquivo(string arquivo)
+        {
+            string formato = "";
+            if (arquivo != null && arquivo.Contains("."))
+                formato = arquivo.Substring(arquivo.LastIndexOf(".") + 1);
+            return formato;
+        }
     }
 
     public static class AlterClaim

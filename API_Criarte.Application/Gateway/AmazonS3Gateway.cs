@@ -39,7 +39,7 @@ namespace API_Criarte.Application.Gateway
             _awsS3Client = new AmazonS3Client(AWSCredentials, config);
         }
 
-        public async Task<bool> UploadAnObject(string path, string file_name, byte[] file)
+        public async Task<bool> UploadAnObject(string path, string file_name, byte[] file, string content_type)
         {
             using (Stream stream = new MemoryStream(file))
             {
@@ -47,7 +47,7 @@ namespace API_Criarte.Application.Gateway
                 request.BucketName = bucketName;
                 request.InputStream = stream;
                 request.Key = path + file_name;
-                request.ContentType = "image/png"; //file.ContentType;
+                request.ContentType = content_type; //file.ContentType;
                 request.StorageClass = S3StorageClass.Standard;
                 request.CannedACL = S3CannedACL.BucketOwnerFullControl;
                 var response = await _awsS3Client.PutObjectAsync(request).ConfigureAwait(false);

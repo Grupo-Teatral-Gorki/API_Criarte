@@ -72,6 +72,7 @@ namespace API_Criarte
             builder.Services.AddScoped<IRubricaRepository, RubricaRepository>();
             builder.Services.AddScoped<ITipoUnidadeRepository, TipoUnidadeRepository>();
             builder.Services.AddScoped<IDocumentosProjetoRepository, DocumentosProjetoRepository>();
+            builder.Services.AddScoped<IDocumentosProponenteRepository, DocumentosProponenteRepository>();
 
             //Services
             builder.Services.AddScoped<ILoginService, LoginService>();
@@ -82,6 +83,7 @@ namespace API_Criarte
             builder.Services.AddScoped<IProjetoService, ProjetoService>();
             builder.Services.AddScoped<IAmazonS3Service, AmazonS3Service>();
             builder.Services.AddScoped<IDocumentosProjetoService, DocumentosProjetoService>();
+            builder.Services.AddScoped<IDocumentosProponenteService, DocumentosProponenteService>();
 
             builder.Services.AddHttpContextAccessor();
 
