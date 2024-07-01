@@ -11,5 +11,6 @@ namespace API_Criarte.Application.DTOs
         public int Id { get; set; }
         public string Usuario { get; set; }
         public int TipoUsuario { get; set; }
+        public int IdCidade { get; set; }
     }
 }

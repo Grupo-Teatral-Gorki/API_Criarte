@@ -58,11 +58,11 @@ namespace API_Criarte.Application.Services
 
         public async Task<ApiResponse<UsuarioLogadoDTO>> AuthenticateUser(UsuarioLoginDTO loginDto)
         {
-            var login = _mapper.Map<UsuarioDTO>(loginDto);
+            //var login = _mapper.Map<UsuarioDTO>(loginDto);
             ApiResponse<UsuarioLogadoDTO> response = new ApiResponse<UsuarioLogadoDTO>(true, "Email e/ou senha inválido.");
-            var user = _mapper.Map<Usuarios>(login);
+            var user = _mapper.Map<Usuarios>(loginDto);
 
-            user.Senha = GerarHashMd5(login.Senha);
+            user.Senha = GerarHashMd5(user.Senha);
 
             var usuario = await _repository.GetUser(user);
 
@@ -76,7 +76,8 @@ namespace API_Criarte.Application.Services
                 {
                     Id = usuario.IdUsuario,
                     Usuario = usuario.Usuario,
-                    TipoUsuario = usuario.TipoUsuario
+                    TipoUsuario = usuario.TipoUsuario,
+                    IdCidade = usuario.IdCidade
                 };
                 response = new ApiResponse<UsuarioLogadoDTO>( false, "Login realizado com sucesso.", logged );
             }
@@ -182,7 +183,9 @@ namespace API_Criarte.Application.Services
             var securitykey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(_config["Jwt:Key"]));
             var credentials = new SigningCredentials(securitykey, SecurityAlgorithms.HmacSha256);
             var claimsdata = new[] {
-                    new Claim("id_usuario", Convert.ToString(login.Id))
+                    new Claim("id_usuario", Convert.ToString(login.Id)),
+                    new Claim("id_tipo", Convert.ToString(login.TipoUsuario)),
+                    new Claim("id_cidade", Convert.ToString(login.IdCidade))
             };
 
             var token = new JwtSecurityToken(_config["Jwt:Issuer"], _config["Jwt:Audience"], claimsdata,
@@ -197,13 +200,6 @@ namespace API_Criarte.Application.Services
             bool pass = Util.ValidPass(user.Senha);
             bool result = false;
             response = new ApiResponse<object>(true, "Erro ao criar login.");
-
-            if (user.TipoUsuario < 1 || user.TipoUsuario > 4)
-            {
-                response = new ApiResponse<object>(true, "Tipo de usuario inválido.");
-                result = true;
-                return result;
-            }
 
             if (email && pass)
             {

@@ -17,7 +17,7 @@ namespace API_Criarte.Controllers
             _projetoService = projetoService;
         }
 
-        //[Authorize]
+        [Authorize]
         [Route("~/api/docProjeto/Create")]
         [HttpPut]
         [ProducesResponseType(200)]
@@ -33,7 +33,7 @@ namespace API_Criarte.Controllers
             return Ok(result);
         }
 
-        //[Authorize]
+        [Authorize]
         [Route("~/api/docProjeto/Get")]
         [HttpGet]
         [ProducesResponseType(200)]

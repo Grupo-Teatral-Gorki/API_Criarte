@@ -1,0 +1,1 @@
+ALTER TABLE seguranca.usuarios ADD id_cidade INT

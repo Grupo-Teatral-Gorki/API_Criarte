@@ -23,6 +23,8 @@ namespace API_Criarte.Domain.Models
         [Column("expiration_token")]
         public DateTime? ExpirationToken { get; set; }
         [Column("tipo_usuario")]
-        public int TipoUsuario { get; set; }
+        public int TipoUsuario { get; set; } = 1;
+        [Column("id_cidade")]
+        public int IdCidade { get; set; }
     }
 }

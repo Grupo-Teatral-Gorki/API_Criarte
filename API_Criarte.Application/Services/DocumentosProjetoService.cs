@@ -19,11 +19,18 @@ namespace API_Criarte.Application.Services
         private readonly IDocumentosProjetoRepository _repository;
         private readonly dbContext _dbContext;
 
-        public DocumentosProjetoService(IAmazonS3Service s3, dbContext dbContext, IDocumentosProjetoRepository repository)
+        private readonly IHttpContextAccessor user;
+        private int id_cidade;
+
+        public DocumentosProjetoService(IAmazonS3Service s3, dbContext dbContext, IDocumentosProjetoRepository repository,
+            IHttpContextAccessor user)
         {
             _s3 = s3;
             _dbContext = dbContext;
             _repository = repository;
+            this.user = user;
+
+            id_cidade = Convert.ToInt32(AlterClaim.GetClaimValue(this.user.HttpContext.User, "id_cidade"));
         }
 
         public async Task<ApiResponse<string>> PutDocumentoProjeto(int id_projeto, IFormFile file, int id_tipo)
@@ -43,12 +50,12 @@ namespace API_Criarte.Application.Services
             MemoryStream ms = new MemoryStream();
             fileStream.CopyTo(ms);
 
-            return await _s3.PutArchive(3755, $"{id_projeto}/projeto/{id_tipo}", Convert.ToString(documento.IdDocumento), ms, file);
+            return await _s3.PutArchive(id_cidade, $"{id_projeto}/projeto/{id_tipo}", Convert.ToString(documento.IdDocumento), ms, file);
         }
 
         public async Task<ApiResponse<string>> GetDocumentoProjeto(int id_projeto, int id_tipo, int id_documento)
         {
-            return await _s3.GetDocById(3755, $"{id_projeto}/projeto/{id_tipo}", Convert.ToString(id_documento));
+            return await _s3.GetDocById(id_cidade, $"{id_projeto}/projeto/{id_tipo}", Convert.ToString(id_documento));
         }
     }
 }

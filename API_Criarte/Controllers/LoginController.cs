@@ -41,10 +41,14 @@ namespace API_Criarte.Controllers
         {
             IActionResult response = Unauthorized();
             ApiResponse<UsuarioLogadoDTO> user_ = await _loginService.AuthenticateUser(usuario);
-            if (user_ != null)
+            if (!user_.Error)
             {
                 var token = _loginService.GenerateToken(user_.Data);
                 response = Ok(new { token, user = user_ });
+            }
+            else
+            {
+                response = Unauthorized(user_.Message);
             }
             return response;
         }

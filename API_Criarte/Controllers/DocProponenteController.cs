@@ -1,6 +1,7 @@
 ﻿using API_Criarte.Application.Interfaces;
 using API_Criarte.Domain;
 using API_Criarte.Models;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using System.ComponentModel.DataAnnotations;
 
@@ -15,7 +16,7 @@ namespace API_Criarte.Controllers
             _projetoService = projetoService;
         }
 
-        //[Authorize]
+        [Authorize]
         [Route("~/api/docProponente/Create")]
         [HttpPut]
         [ProducesResponseType(200)]
@@ -31,7 +32,7 @@ namespace API_Criarte.Controllers
             return Ok(result);
         }
 
-        //[Authorize]
+        [Authorize]
         [Route("~/api/docProponente/Get")]
         [HttpGet]
         [ProducesResponseType(200)]

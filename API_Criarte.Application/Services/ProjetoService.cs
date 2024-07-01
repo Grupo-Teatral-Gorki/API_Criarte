@@ -37,6 +37,7 @@ namespace API_Criarte.Application.Services
 
         private readonly IHttpContextAccessor user;
         private int id_usuario;
+        private int id_tipo;
 
         public ProjetoService(ISegmentoRepository segmentoRepository, IFontesFinanciamentoRepository fontesFinanciamentoRepository, 
             IFonteFinanciamentoRepository fonteFinanciamentoRepository, IProjetoRepository projetoRepository, 
@@ -62,6 +63,7 @@ namespace API_Criarte.Application.Services
             this.user = user;
 
             id_usuario = Convert.ToInt32(AlterClaim.GetClaimValue(this.user.HttpContext.User, "id_usuario"));
+            id_tipo = Convert.ToInt32(AlterClaim.GetClaimValue(this.user.HttpContext.User, "id_tipo"));
         }
 
         public async Task<ApiResponse<List<ProjetosDTO>>> GetProjetos()
@@ -71,7 +73,7 @@ namespace API_Criarte.Application.Services
                 return new ApiResponse<List<ProjetosDTO>>(true, "Não é um usuario valido");
             }
             var projetos = await (from x in dbContext.Projeto
-                                  where (x.IdUsuario == id_usuario || id_usuario != 1)
+                                  where (x.IdUsuario == id_usuario || id_tipo != 1)
                                   join p in dbContext.Proponentes on x.IdProponente equals p.IdProponente into pGroup
                                   from p in pGroup.DefaultIfEmpty()
                                   join e in dbContext.Edital on x.IdEdital equals e.IdEdital into eGroup
@@ -107,7 +109,7 @@ namespace API_Criarte.Application.Services
                 return new ApiResponse<ProjetoCompletoDTO>(true, "Não é um usuario valido");
             }
             var projeto = await (from x in dbContext.Projeto
-                                  where x.IdProjeto == idProjeto && (x.IdUsuario == id_usuario || id_usuario != 1)
+                                  where x.IdProjeto == idProjeto && (x.IdUsuario == id_usuario || id_tipo != 1)
                                   select new ProjetoCompletoDTO()
                                   {
                                       Projeto = x,
