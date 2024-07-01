@@ -71,7 +71,7 @@ namespace API_Criarte.Application.Services
                 return new ApiResponse<List<ProjetosDTO>>(true, "Não é um usuario valido");
             }
             var projetos = await (from x in dbContext.Projeto
-                                  where x.IdUsuario == id_usuario
+                                  where (x.IdUsuario == id_usuario || id_usuario != 1)
                                   join p in dbContext.Proponentes on x.IdProponente equals p.IdProponente into pGroup
                                   from p in pGroup.DefaultIfEmpty()
                                   join e in dbContext.Edital on x.IdEdital equals e.IdEdital into eGroup
@@ -107,7 +107,7 @@ namespace API_Criarte.Application.Services
                 return new ApiResponse<ProjetoCompletoDTO>(true, "Não é um usuario valido");
             }
             var projeto = await (from x in dbContext.Projeto
-                                  where x.IdProjeto == idProjeto && x.IdUsuario == id_usuario
+                                  where x.IdProjeto == idProjeto && (x.IdUsuario == id_usuario || id_usuario != 1)
                                   select new ProjetoCompletoDTO()
                                   {
                                       Projeto = x,

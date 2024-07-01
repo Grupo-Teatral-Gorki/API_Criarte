@@ -12,7 +12,7 @@ namespace API_Criarte.Application.Interfaces
     public interface ILoginService
     {
         Task<ApiResponse<object>> CreateUser(UsuarioDTO usuario);
-        Task<ApiResponse<UsuarioLogadoDTO>> AuthenticateUser(UsuarioDTO login);
+        Task<ApiResponse<UsuarioLogadoDTO>> AuthenticateUser(UsuarioLoginDTO login);
         string GenerateToken(UsuarioLogadoDTO login);
         Task<ApiResponse<string>> RecoveryPass(string email);
         Task<ApiResponse<string>> NewPass(string pass, string token);

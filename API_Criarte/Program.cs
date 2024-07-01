@@ -1,5 +1,8 @@
 
+using API_Criarte.Application.DTOs;
+using API_Criarte.Application.Gateway;
 using API_Criarte.Application.Interfaces;
+using API_Criarte.Application.Interfaces.Gateway;
 using API_Criarte.Application.Mappings;
 using API_Criarte.Application.Services;
 using API_Criarte.Application.Services.Gateway;
@@ -68,6 +71,8 @@ namespace API_Criarte
             builder.Services.AddScoped<IResponsaveisTecnicosRepository, ResponsaveisTecnicosRepository>();
             builder.Services.AddScoped<IRubricaRepository, RubricaRepository>();
             builder.Services.AddScoped<ITipoUnidadeRepository, TipoUnidadeRepository>();
+            builder.Services.AddScoped<IDocumentosProjetoRepository, DocumentosProjetoRepository>();
+            builder.Services.AddScoped<IDocumentosProponenteRepository, DocumentosProponenteRepository>();
 
             //Services
             builder.Services.AddScoped<ILoginService, LoginService>();
@@ -76,10 +81,14 @@ namespace API_Criarte
             builder.Services.AddScoped<IEditalService, EditalService>();
             builder.Services.AddScoped<ISegmentoService, SegmentoService>();
             builder.Services.AddScoped<IProjetoService, ProjetoService>();
+            builder.Services.AddScoped<IAmazonS3Service, AmazonS3Service>();
+            builder.Services.AddScoped<IDocumentosProjetoService, DocumentosProjetoService>();
+            builder.Services.AddScoped<IDocumentosProponenteService, DocumentosProponenteService>();
 
             builder.Services.AddHttpContextAccessor();
 
             builder.Services.AddScoped<ISendMailGateway, SendMailGateway>();
+            builder.Services.AddScoped<IAmazonS3Gateway, AmazonS3Gateway>();
 
 
             builder.Services.AddAutoMapper(typeof(EntitiesToDTOMappingProfile));
@@ -88,6 +97,17 @@ namespace API_Criarte
             {
                 builder.WithOrigins("*").AllowAnyMethod().AllowAnyHeader();
             }));
+
+            string AwsBucketName = Environment.GetEnvironmentVariable("CriarteBucket");
+            string AwsKeyID = Environment.GetEnvironmentVariable("CriarteKeyID");
+            string AwsKeySecret = Environment.GetEnvironmentVariable("CriarteSecret");
+
+            builder.Services.Configure<AwsVariablesDTO>(options =>
+            {
+                options.bucketName = AwsBucketName ?? "";
+                options.AwsKeyID = AwsKeyID ?? "";
+                options.AwsKeySecret = AwsKeySecret ?? "";
+            });
 
             var app = builder.Build();
 

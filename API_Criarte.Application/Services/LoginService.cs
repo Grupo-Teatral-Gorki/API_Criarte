@@ -56,8 +56,9 @@ namespace API_Criarte.Application.Services
             return response;
         }
 
-        public async Task<ApiResponse<UsuarioLogadoDTO>> AuthenticateUser(UsuarioDTO login)
+        public async Task<ApiResponse<UsuarioLogadoDTO>> AuthenticateUser(UsuarioLoginDTO loginDto)
         {
+            var login = _mapper.Map<UsuarioDTO>(loginDto);
             ApiResponse<UsuarioLogadoDTO> response = new ApiResponse<UsuarioLogadoDTO>(true, "Email e/ou senha inválido.");
             var user = _mapper.Map<Usuarios>(login);
 
@@ -74,7 +75,8 @@ namespace API_Criarte.Application.Services
                 UsuarioLogadoDTO logged = new UsuarioLogadoDTO
                 {
                     Id = usuario.IdUsuario,
-                    Usuario = usuario.Usuario
+                    Usuario = usuario.Usuario,
+                    TipoUsuario = usuario.TipoUsuario
                 };
                 response = new ApiResponse<UsuarioLogadoDTO>( false, "Login realizado com sucesso.", logged );
             }
@@ -195,6 +197,13 @@ namespace API_Criarte.Application.Services
             bool pass = Util.ValidPass(user.Senha);
             bool result = false;
             response = new ApiResponse<object>(true, "Erro ao criar login.");
+
+            if (user.TipoUsuario < 1 || user.TipoUsuario > 4)
+            {
+                response = new ApiResponse<object>(true, "Tipo de usuario inválido.");
+                result = true;
+                return result;
+            }
 
             if (email && pass)
             {

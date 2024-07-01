@@ -6,10 +6,10 @@ using System.Threading.Tasks;
 
 namespace API_Criarte.Application.DTOs
 {
-    public class UsuarioLogadoDTO
+    public class AwsVariablesDTO
     {
-        public int Id { get; set; }
-        public string Usuario { get; set; }
-        public int TipoUsuario { get; set; }
+        public string bucketName { get; set; }
+        public string AwsKeyID { get; set; }
+        public string AwsKeySecret { get; set; }
     }
 }

@@ -37,7 +37,7 @@ namespace API_Criarte.Controllers
         [AllowAnonymous]
         [HttpPost]
         [Route("~/api/usuarios/authenticate/")]
-        public async Task<IActionResult> Login([Required][FromBody]UsuarioDTO usuario)
+        public async Task<IActionResult> Login([Required][FromBody]UsuarioLoginDTO usuario)
         {
             IActionResult response = Unauthorized();
             ApiResponse<UsuarioLogadoDTO> user_ = await _loginService.AuthenticateUser(usuario);

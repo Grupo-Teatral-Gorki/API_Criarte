@@ -6,10 +6,9 @@ using System.Threading.Tasks;
 
 namespace API_Criarte.Application.DTOs
 {
-    public class UsuarioLogadoDTO
+    public class UsuarioLoginDTO
     {
-        public int Id { get; set; }
         public string Usuario { get; set; }
-        public int TipoUsuario { get; set; }
+        public string Senha { get; set; }
     }
 }

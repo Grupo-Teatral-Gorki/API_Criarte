@@ -9,6 +9,7 @@ namespace API_Criarte.Application.Mappings
         public EntitiesToDTOMappingProfile()
         {
             CreateMap<Usuarios, UsuarioDTO>().ReverseMap();
+            CreateMap<UsuarioLoginDTO, UsuarioDTO>().ReverseMap();
             CreateMap<Proponentes, ProponenteDTO>().ReverseMap();
             CreateMap<Proponentes, CreateProponenteDTO>().ReverseMap();
             CreateMap<Modalidades, ModalidadesDTO>().ReverseMap();

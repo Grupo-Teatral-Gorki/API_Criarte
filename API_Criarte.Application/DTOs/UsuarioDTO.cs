@@ -13,6 +13,7 @@ namespace API_Criarte.Application.DTOs
     {
         public string Usuario { get; set; }
         public string Senha { get; set; }
+        public int TipoUsuario { get; set; } = 1;
 
         //public UsuarioDTO(string usuario, string senha)
         //{
