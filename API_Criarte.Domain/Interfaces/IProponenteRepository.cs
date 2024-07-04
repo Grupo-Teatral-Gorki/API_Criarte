@@ -10,6 +10,7 @@ namespace API_Criarte.Domain.Interfaces
     public interface IProponenteRepository
     {
         Task<Proponentes> GetProponente(int id_proponente);
+        Task<List<Proponentes>> GetProponenteByIdUsuario(int id_usuario);
         Task<int> CreateProponente(Proponentes proponente);
         Task<int> UpdateProponente(Proponentes proponente);
     }

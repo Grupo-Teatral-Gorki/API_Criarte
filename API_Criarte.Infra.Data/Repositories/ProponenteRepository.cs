@@ -25,6 +25,12 @@ namespace API_Criarte.Infra.Data.Repositories
             return proponente;
         }
 
+        public async Task<List<Proponentes>> GetProponenteByIdUsuario(int id_usuario)
+        {
+            var proponente = await _dbContext.Proponentes.AsNoTracking().Where(x => x.IdUsuarioCadastro == id_usuario).ToListAsync().ConfigureAwait(false);
+            return proponente;
+        }
+
         public async Task<int> CreateProponente(Proponentes proponente)
         {
             await _dbContext.Proponentes.AddAsync(proponente);

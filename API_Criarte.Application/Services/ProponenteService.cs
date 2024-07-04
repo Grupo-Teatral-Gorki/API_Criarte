@@ -2,7 +2,9 @@
 using API_Criarte.Application.Interfaces;
 using API_Criarte.Domain.Interfaces;
 using API_Criarte.Domain.Models;
+using API_Lib;
 using AutoMapper;
+using Microsoft.AspNetCore.Http;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -16,10 +18,16 @@ namespace API_Criarte.Application.Services
         private readonly IProponenteRepository _repository;
         private readonly IMapper _mapper;
 
-        public ProponenteService(IProponenteRepository repository, IMapper mapper)
+        private readonly IHttpContextAccessor user;
+        private int id_usuario;
+
+        public ProponenteService(IProponenteRepository repository, IMapper mapper, IHttpContextAccessor accessor)
         {
             _repository = repository;
             _mapper = mapper;
+            user = accessor;
+
+            id_usuario = Convert.ToInt32(AlterClaim.GetClaimValue(this.user.HttpContext.User, "id_usuario"));
         }
 
         public async Task<ProponenteDTO> GetProponente(int id_proponente)
@@ -28,9 +36,17 @@ namespace API_Criarte.Application.Services
             return proponente;
         }
 
+        public async Task<List<ProponenteDTO>> GetProponenteByIdUsuario()
+        {
+            var proponente = _mapper.Map<List<ProponenteDTO>>( await _repository.GetProponenteByIdUsuario(id_usuario));
+            return proponente;
+        }
+
         public async Task<bool> CreateProponente(CreateProponenteDTO proponente)
         {
             var prop = _mapper.Map<Proponentes>(proponente);
+            prop.IdUsuarioCadastro = id_usuario;
+
             var result = await _repository.CreateProponente(prop);
 
             if(result <= 0)

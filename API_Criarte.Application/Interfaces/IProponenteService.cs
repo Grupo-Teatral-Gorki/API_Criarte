@@ -10,6 +10,7 @@ namespace API_Criarte.Application.Interfaces
     public interface IProponenteService
     {
         Task<ProponenteDTO> GetProponente(int id_proponente);
+        Task<List<ProponenteDTO>> GetProponenteByIdUsuario();
         Task<bool> CreateProponente(CreateProponenteDTO proponente);
         Task<bool> UpdateProponente(ProponenteDTO proponente);
     }

@@ -1,0 +1,1 @@
+ALTER TABLE geral.proponente ADD id_usuario_cadastro INT

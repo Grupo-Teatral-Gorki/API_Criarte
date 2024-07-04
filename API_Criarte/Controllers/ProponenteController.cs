@@ -34,6 +34,19 @@ namespace API_Criarte.Controllers
             return Ok(result);
         }
 
+        [Authorize]
+        [HttpGet]
+        [Route("~/api/proponentes/getProponentesByUser")]
+        public async Task<IActionResult> GetProponenteById()
+        {
+            List<ProponenteDTO> result = await _proponenteService.GetProponenteByIdUsuario();
+            if (result.Count <= 0)
+            {
+                return NotFound("Não foi possivel encontrar proponentes cadastrados por este usuario.");
+            }
+            return Ok(result);
+        }
+
         [AllowAnonymous]
         [HttpPut]
         [Route("~/api/proponentes/createProponente/")]

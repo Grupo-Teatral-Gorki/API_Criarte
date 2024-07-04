@@ -98,5 +98,8 @@ namespace API_Criarte.Domain.Models
 
         [Column("uf_pj")]
         public string UFPJ { get; set; }
+
+        [Column("id_usuario_cadastro")]
+        public int IdUsuarioCadastro { get; set; }
     }
 }
