@@ -68,5 +68,23 @@ namespace API_Criarte.Domain.Models
 
         [Column("id_usuario")]
         public int IdUsuario { get; set; }
+
+        [Column("relevancia_pertinencia")]
+        public string? RelevanciaPertinencia { get; set; }
+
+        [Column("perfil_publico")]
+        public string? PerfilPublico { get; set; }
+
+        [Column("classificacao_indicativa")]
+        public string? ClassificacaoIndicativa { get; set; }
+
+        [Column("qtd_publico")]
+        public int? QuantidadePublico { get; set; }
+
+        [Column("proposta_contrapartida")]
+        public string? PropostaContrapartida { get; set; }
+
+        [Column("plano_divulgacao")]
+        public string? PlanoDivulgacao { get; set; }
     }
 }
