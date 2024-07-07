@@ -1,0 +1,1 @@
+ALTER TABLE projeto.projeto ALTER COLUMN qtd_publico TYPE VARCHAR(255);
