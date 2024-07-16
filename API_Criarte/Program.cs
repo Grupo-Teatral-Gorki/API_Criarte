@@ -28,7 +28,7 @@ namespace API_Criarte
 
             builder.Services.AddControllers();
 
-            string LocalString = Environment.GetEnvironmentVariable("LocalString");
+            string LocalString = "User ID=joao;Password=dev@123;Host=psql.styxx.com.br;Port=5432;Database=criarte_tst";
 
             builder.Services.AddDbContext<dbContext>(options =>
             options.UseNpgsql(LocalString));
@@ -98,9 +98,9 @@ namespace API_Criarte
                 builder.WithOrigins("*").AllowAnyMethod().AllowAnyHeader();
             }));
 
-            string AwsBucketName = Environment.GetEnvironmentVariable("CriarteBucket");
-            string AwsKeyID = Environment.GetEnvironmentVariable("CriarteKeyID");
-            string AwsKeySecret = Environment.GetEnvironmentVariable("CriarteSecret");
+            string AwsBucketName = "criarte-docs";
+            string AwsKeyID = "AKIA4MTWJZFBRBYVRFBN";
+            string AwsKeySecret = "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";
 
             builder.Services.Configure<AwsVariablesDTO>(options =>
             {
