@@ -12,5 +12,6 @@ namespace API_Criarte.Domain.Interfaces
         Task<List<Projeto>> GetProjeto();
         Task<int> CreateProjeto(Projeto projeto);
         Task<int> UpdateProjeto(Projeto projeto);
+        Task<int> AlterarStatus(int idProjeto, string status);
     }
 }

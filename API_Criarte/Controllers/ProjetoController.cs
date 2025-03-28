@@ -70,6 +70,19 @@ namespace API_Criarte.Controllers
         }
 
         [Authorize]
+        [HttpPost]
+        [Route("~/api/projeto/alterarStatus/")]
+        public async Task<IActionResult> alterarStatus([FromBody] AlterarStatusDTO dto)
+        {
+            ApiResponse<int> result = await _projetoService.AlterarStatus(dto.IdProjeto, dto.Status);
+            if (result.Error)
+            {
+                return BadRequest(result.Message);
+            }
+            return Ok(result);
+        }
+
+        [Authorize]
         [HttpGet]
         [Route("~/api/projeto/fontesFinanceiras/{idProjeto}")]
         public async Task<IActionResult> GetFontesFinanceiras(int idProjeto)

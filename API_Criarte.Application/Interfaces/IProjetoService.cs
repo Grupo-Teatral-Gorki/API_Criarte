@@ -15,6 +15,7 @@ namespace API_Criarte.Application.Interfaces
         Task<ApiResponse<ProjetoCompletoDTO>> GetProjetoById(int idProjeto);
         Task<ApiResponse<ProjetoCompletoDTO>> CreateProjeto(int idEdital, int idModalidade);
         Task<ApiResponse<int>> UpdateProjeto(Projeto projetoDTO);
+        Task<ApiResponse<int>> AlterarStatus(int idProjeto, string status);
         Task<ApiResponse<List<FontesFinanciamento>>> GetFontesFinanceiras(int idProjeto);
         Task<ApiResponse<FontesFinanciamento>> CreateFontesFinanceiras(FontesFinanciamentoDTO fonteDTO);
         Task<ApiResponse<List<Despesas>>> GetDespesas(int idProjeto);

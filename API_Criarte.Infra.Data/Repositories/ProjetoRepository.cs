@@ -40,5 +40,17 @@ namespace API_Criarte.Infra.Data.Repositories
 
             return saved_projeto;
         }
+
+        public async Task<int> AlterarStatus(int idProjeto, string status)
+        {
+            var projeto = await _dbContext.Projeto.FirstOrDefaultAsync(p => p.IdProjeto == idProjeto);
+            if (projeto != null)
+            {
+                projeto.Status = status;
+                return await _dbContext.SaveChangesAsync();
+            }
+
+            return 0; // Indicate that the project was not found or not updated.
+        }
     }
 }

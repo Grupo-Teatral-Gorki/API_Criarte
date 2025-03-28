@@ -179,6 +179,16 @@ namespace API_Criarte.Application.Services
             return new ApiResponse<int>(true, "O projeto não foi atualizado.");
         }
 
+        public async Task<ApiResponse<int>> AlterarStatus(int idProjeto, string status)
+        {
+            int result = await projetoRepository.AlterarStatus(idProjeto, status);
+
+            if (result != 0)
+            {
+                return new ApiResponse<int>(false, "Projeto atualizado com sucesso.");
+            }
+            return new ApiResponse<int>(true, "O projeto não foi atualizado.");
+        }
         public async Task<ApiResponse<List<FontesFinanciamento>>> GetFontesFinanceiras(int idProjeto)
         {
             List<FontesFinanciamento> fontes = await fontesFinanciamentoRepository.GetFontesFinanciamentoById(idProjeto);
