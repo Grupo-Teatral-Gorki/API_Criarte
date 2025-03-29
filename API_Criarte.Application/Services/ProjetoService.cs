@@ -102,7 +102,7 @@ namespace API_Criarte.Application.Services
             }
         }
 
-        public async Task<ApiResponse<ProjetoCompletoDTO>> GetProjetoById(int idProjeto)
+        public async Task<ApiResponse<ProjetoCompletoDTO>> GetProjetoById(long idProjeto)
         {
             if (id_usuario <= 0)
             {
@@ -158,7 +158,7 @@ namespace API_Criarte.Application.Services
             };
             Projeto projeto = mapper.Map<Projeto>(projetoDTO);
 
-            int idProjeto = await projetoRepository.CreateProjeto(projeto);
+            var idProjeto = await projetoRepository.CreateProjeto(projeto);
 
             if (idProjeto != 0)
             {

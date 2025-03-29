@@ -13,7 +13,7 @@ namespace API_Criarte.Domain.Models
     {
         [Key]
         [Column("id_projeto")]
-        public int IdProjeto { get; set; }
+        public long IdProjeto { get; set; }
 
         [Column("nome_projeto")]
         public string? NomeProjeto { get; set; }
@@ -67,7 +67,7 @@ namespace API_Criarte.Domain.Models
         public string? Status { get; set; }
 
         [Column("id_usuario")]
-        public int IdUsuario { get; set; }
+        public long IdUsuario { get; set; }
 
         [Column("relevancia_pertinencia")]
         public string? RelevanciaPertinencia { get; set; }
@@ -79,7 +79,7 @@ namespace API_Criarte.Domain.Models
         public string? ClassificacaoIndicativa { get; set; }
 
         [Column("qtd_publico")]
-        public int? QuantidadePublico { get; set; }
+        public string? QuantidadePublico { get; set; }
 
         [Column("proposta_contrapartida")]
         public string? PropostaContrapartida { get; set; }

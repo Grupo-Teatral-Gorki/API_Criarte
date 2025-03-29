@@ -25,7 +25,7 @@ namespace API_Criarte.Infra.Data.Repositories
             return projeto;
         }
 
-        public async Task<int> CreateProjeto(Projeto projeto)
+        public async Task<long> CreateProjeto(Projeto projeto)
         {
             await _dbContext.Projeto.AddAsync(projeto);
             _dbContext.SaveChanges();
@@ -43,7 +43,7 @@ namespace API_Criarte.Infra.Data.Repositories
 
         public async Task<int> AlterarStatus(int idProjeto, string status)
         {
-            var projeto = await _dbContext.Projeto.FirstOrDefaultAsync(p => p.IdProjeto == idProjeto);
+            var projeto = await _dbContext.Projeto.FirstOrDefaultAsync(x => x.IdProjeto == idProjeto);
             if (projeto != null)
             {
                 projeto.Status = status;

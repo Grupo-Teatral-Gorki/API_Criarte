@@ -12,7 +12,7 @@ namespace API_Criarte.Application.Interfaces
     public interface IProjetoService
     {
         Task<ApiResponse<List<ProjetosDTO>>> GetProjetos();
-        Task<ApiResponse<ProjetoCompletoDTO>> GetProjetoById(int idProjeto);
+        Task<ApiResponse<ProjetoCompletoDTO>> GetProjetoById(long idProjeto);
         Task<ApiResponse<ProjetoCompletoDTO>> CreateProjeto(int idEdital, int idModalidade);
         Task<ApiResponse<int>> UpdateProjeto(Projeto projetoDTO);
         Task<ApiResponse<int>> AlterarStatus(int idProjeto, string status);
