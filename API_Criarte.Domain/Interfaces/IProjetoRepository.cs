@@ -10,7 +10,7 @@ namespace API_Criarte.Domain.Interfaces
     public interface IProjetoRepository
     {
         Task<List<Projeto>> GetProjeto();
-        Task<int> CreateProjeto(Projeto projeto);
+        Task<long> CreateProjeto(Projeto projeto);
         Task<int> UpdateProjeto(Projeto projeto);
         Task<int> AlterarStatus(int idProjeto, string status);
     }
