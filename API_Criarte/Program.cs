@@ -24,6 +24,7 @@ namespace API_Criarte
         {
             var builder = WebApplication.CreateBuilder(args);
 
+
             // Add services to the container.
 
             builder.Services.AddControllers();
@@ -93,10 +94,16 @@ namespace API_Criarte
 
             builder.Services.AddAutoMapper(typeof(EntitiesToDTOMappingProfile));
 
-            builder.Services.AddCors(p => p.AddPolicy("corsapp", builder =>
+            builder.Services.AddCors(options =>
             {
-                builder.WithOrigins("*").AllowAnyMethod().AllowAnyHeader();
-            }));
+                options.AddPolicy("corsapp", policy =>
+                {
+                    policy.WithOrigins("https://criarte.grupogorki.com.br")
+                          .AllowAnyHeader()
+                          .AllowAnyMethod();
+                });
+            });
+
 
             string AwsBucketName = "criarte-docs";
             string AwsKeyID = "AKIA4MTWJZFBRBYVRFBN";
