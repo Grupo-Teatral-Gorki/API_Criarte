@@ -94,6 +94,7 @@ namespace API_Criarte
 
             builder.Services.AddAutoMapper(typeof(EntitiesToDTOMappingProfile));
 
+
             builder.Services.AddCors(options =>
             {
                 options.AddPolicy("corsapp", policy =>
