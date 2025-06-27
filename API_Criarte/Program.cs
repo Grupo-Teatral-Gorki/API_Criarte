@@ -99,7 +99,7 @@ namespace API_Criarte
             {
                 options.AddPolicy("corsapp", policy =>
                 {
-                    policy.WithOrigins("https://criarte.grupogorki.com.br")
+                    policy.AllowAnyOrigin()
                           .AllowAnyHeader()
                           .AllowAnyMethod();
                 });
