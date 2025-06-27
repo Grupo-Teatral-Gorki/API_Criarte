@@ -1,4 +1,3 @@
-
 using API_Criarte.Application.DTOs;
 using API_Criarte.Application.Gateway;
 using API_Criarte.Application.Interfaces;
@@ -130,9 +129,8 @@ namespace API_Criarte
 
             app.UseRouting();
             app.UseCors("corsapp");
-
+            app.UseAuthentication();
             app.UseAuthorization();
-
 
             app.MapControllers();
 
