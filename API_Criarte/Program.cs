@@ -27,7 +27,7 @@ namespace API_Criarte
             // Add services to the container.
 
             builder.Services.AddControllers();
-
+            builder.Services.AddHealthChecks();
             string LocalString = "User ID=joao;Password=dev@123;Host=psql.styxx.com.br;Port=5432;Database=criarte_tst";
 
             builder.Services.AddDbContext<dbContext>(options =>
@@ -133,7 +133,7 @@ namespace API_Criarte
             app.UseAuthorization();
 
             app.MapControllers();
-
+            app.MapHealthChecks("/health");
             app.Run();
         }
     }
